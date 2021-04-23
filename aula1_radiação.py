@@ -18,7 +18,7 @@ def declsol(nda):
     declsol_v = 23.45 * sin(radians((360 * (nda - 80)) / 365))
     return declsol_v
 
-# Fórmula da correção devido a elipse da terra entorno do sol (d/D)^2
+# Fórmula da correção devido a elipse da terra entorno do sol (d/D)>02
 def varrad(nda):
     varrad_v = 1 + 0.033 * cos(radians(nda * 360 / 365))
     return varrad_v
@@ -35,22 +35,23 @@ def absPAR(par, k, iaf, r=0):
 
 # Calcular declinação solar
 declsol_v = declsol(nda)
-print("Ds: ", round(declsol_v, 2), "º")
 # Calcular angulo horario do nascer do sol (hn)
 hn = anghor(lat, declsol_v)
-print("hn: ", round(hn, 2), "º")
 
 # Calcular Qo
 qo = RadSol_ET(hn, lat, declsol_v, nda)
-print("Qo:", round(qo, 2), "MJ/m2.dia")
 
 # Estimar PAR
-#    K, IAF;
 # par = qg/2 = qo/4
 par = qo/4
 aPAR = absPAR(par,k,iaf)
-print("aPAR: ", round(aPAR, 2), "MJ/m2.dia")
 
 # Estimar BR
 BiomassRate = aPAR * RUE
-print("Biomass Rate: ", round(BiomassRate, 2), "g/m2.dia")
+
+# Resultados
+print("Declinação solar |  {:>05.2f}  | graus".format(declsol_v))
+print("hn               |  {:>05.2f}  | graus".format(hn))
+print("Qo               |  {:>05.2f}  | MJ/m2.dia".format(qo))
+print("aPAR             |  {:>05.2f}  | MJ/m2.dia".format(aPAR))
+print("Biomass Rate     |  {:>05.2f}  | g/m2.dia".format(BiomassRate))
