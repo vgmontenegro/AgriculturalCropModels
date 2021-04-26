@@ -2,17 +2,16 @@ from math import sin, cos, radians, degrees, exp, acos, tan, pi
 
 # Variáveis de entrada
 # IAF considerado fixo/médio para a cultura do milho; k e RUE são para a cultura do milho
-lat = -28.0808
 jo = 118.11
+lat = -28.0808 # Piedade/SP
 iaf = 3.48
 k = 0.61
 RUE = 3.85
 
 sow_nda = 200 # data de semeadura
-cicle_length = 120 # total de dias do ciclo da cultura
+cicle_length = 150 # total de dias do ciclo da cultura
 
-# Função que cria o ciclo com o NDA de cada dia
-def nda_cicle(sow_nda, cicle_length):
+def nda_cicle(sow_nda, cicle_length): # Função que cria o ciclo com o NDA de cada dia
     global cicle
     cicle = []
     while cicle_length != 0:
@@ -25,21 +24,19 @@ def nda_cicle(sow_nda, cicle_length):
             pass
     return cicle
 
-
-# Fórmula da radiação solar extraterrestre
-def RadSol_ET(lat, nda):
+def RadSol_ET(lat, nda): # Fórmula da radiação solar extraterrestre
     declsol_v = 23.45 * sin(radians((360 * (nda - 80)) / 365)) # Fórmula da declinação solar
     hn = degrees(acos(-tan(radians(lat)) * tan(radians(declsol_v)))) # Fórmula do ângulo horário do nascer do sol
     varrad_v = 1 + 0.033 * cos(radians(nda * 360 / 365)) # Fórmula da correção devido a elipse da terra entorno do sol (d/D)>02
     qo = (jo / pi) * varrad_v * ((pi / 180) * hn * sin(radians(lat)) * sin(radians(declsol_v)) + cos(radians(lat)) * cos(radians(declsol_v)) * sin(radians(hn)))
     return qo
 
-def absPAR(par, k, iaf, r=0):
+def absPAR(par, k, iaf, r=0): # Fórmula que calcula o aPAR a partir da PAR, K e IAF
     aPAR = (par) * (1 - r - exp(-k * iaf))
     return aPAR
 
 TotalBiomass = 0
-nda_cicle(sow_nda, cicle_length)
+nda_cicle(sow_nda, cicle_length) # criando ciclo
 
 # Cálculo dos resultados
 for dia in cicle:
