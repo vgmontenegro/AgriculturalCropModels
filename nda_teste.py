@@ -1,1 +1,9 @@
-IAF = [0, 0.7, 1.6, 3, 4.7, 5.7, 6, 6.1, 5.7, 4.9, 3.8, 2.6]
+from datetime import date
+
+# data de semeadura
+
+dia = 12
+mes = 10
+ano = 2020
+sow_nda = int(date(ano,mes,dia).strftime('%j'))
+print(sow_nda)

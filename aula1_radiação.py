@@ -1,14 +1,20 @@
 from math import sin, cos, radians, degrees, exp, acos, tan, pi
+from datetime import date
 
 # Variáveis de entrada
 # IAF considerado fixo/médio para a cultura do milho; k e RUE são para a cultura do milho
 jo = 118.11
-lat = -28.0808 # Piedade/SP
+lat = -23.0808 # Piedade/SP
 iaf = 3.48
 k = 0.61
 RUE = 3.85
 
-sow_nda = 200 # data de semeadura
+# data de semeadura
+dia = 12
+mes = 10
+ano = 2020
+
+sow_nda = int(date(ano,mes,dia).strftime('%j'))
 cicle_length = 150 # total de dias do ciclo da cultura
 
 def nda_cicle(sow_nda, cicle_length): # Função que cria o ciclo com o NDA de cada dia
@@ -36,7 +42,7 @@ def absPAR(par, k, iaf, r=0): # Fórmula que calcula o aPAR a partir da PAR, K e
     return aPAR
 
 TotalBiomass = 0
-nda_cicle(sow_nda, cicle_length) # criando ciclo
+nda_cicle(sow_nda, cicle_length)# criando ciclo
 
 # Cálculo dos resultados
 for dia in cicle:
