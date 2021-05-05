@@ -8,7 +8,7 @@ ano = 2020
 sow_nda = int(date(ano,mes,dia).strftime('%j'))
 cicle_length = 150 # total de dias do ciclo da cultura
 
-c_data = open('clean_climate_data.csv')
+c_data = open('piedade_climate_data.csv')
 
 def nda_cicle(sow_nda, cicle_length): # Função que cria o ciclo com o NDA de cada dia
     global cicle

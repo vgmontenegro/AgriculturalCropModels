@@ -5,20 +5,20 @@ import Temperature
 # Variáveis de entrada
 
 # data de semeadura
-(dia, mes, ano) = [12, 10, 2019]
+(dia, mes, ano) = [30, 12, 2019]
 sow_nda = int(date(ano, mes, dia).strftime('%j'))
-lat = -23.0808  # Piedade/SP
+lat = -22.7083  # Piracicaba/SP
 
 # IAF considerado fixo/médio para a cultura do milho; k e RUE são para a cultura do milho
 iaf = 3.48
 k = 0.61
 RUE = 3.85
-IC = 0.6           # verificar
-GD_mat = 1000  # Graus dia para a maturação / verificar
-(Tb, To1, To2, TB) = [15, 26, 20, 40]  # verificar
+IC = 0.5           # verificar
+GD_mat = 900+1800  # Graus dia para a maturação / GD_florecimento + GD_florescimento_a_maturação
+(Tb, To1, To2, TB) = [6, 26, 34, 40]
 
 # Abrindo arquivo de dados, definindo variáveis para o inicio e iniciano cálculos
-c_data = open('clean_climate_data.csv')
+c_data = open('piracicaba_climate_data.csv')
 (BR, GD, TotalBiomass, cicle) = [0, 0, 0, 0]
 
 # cálculo do BR diário e somando ao TotalBiomass
@@ -42,4 +42,5 @@ for line in c_data:
     else:
         pass
 
-print("Total Biomass    |  {:>07.2f} kg/ha".format(TotalBiomass*10))
+print("Yield            |  {:>07.2f} kg/ha".format(TotalBiomass*10))
+print("Cicle Lenght     |  {:>8d}   days".format(cicle))
